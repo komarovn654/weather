@@ -43,13 +43,13 @@ char* make_request(const char* url_string)
 
 char* make_url_string(const char* str1,const char* str2,const char* str3)
 {
-  size_t urlstrlen = strlen(str1) + strlen(str2) + strlen(str3);
-  char *url_string = (char* )malloc(sizeof(char) * urlstrlen);
-  if (url_string == NULL){
-    perror("malloc:");
-    return NULL;
-  }
+    size_t urlstrlen = strlen(str1) + strlen(str2) + strlen(str3);
+    char *url_string = (char* )malloc(sizeof(char) * urlstrlen);
+    if (url_string == NULL){
+        perror("malloc:");
+        return NULL;
+    }
 
-  snprintf(url_string, urlstrlen, "%s%s%s", str1, str2, str3);
-  return url_string;
+    snprintf(url_string, urlstrlen, "%s%s%s", str1, str2, str3);
+    return url_string;
 }

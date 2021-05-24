@@ -10,9 +10,9 @@
 #define URL_WEATH_STRING "https://www.metaweather.com/api/location/"
 
 struct memory {
-   char *response;
-   size_t size;
- };
+    char *response;
+    size_t size;
+};
 
 char* make_request(const char* url_string);
 char* make_url_string(const char* str1,const char* str2,const char* str3);

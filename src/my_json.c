@@ -6,12 +6,11 @@ int json_field_get(const char* json_string, const char *key, char *field)
   json_object *tmp, *array_index;
 
   if (json_object_get_type(new_object) != json_type_array){
-    printf("Json string format error, expected json_type_array");
+    printf("Json string format error, expected json_type_array\n");
     return 0;
   }
   
   size_t arraylen = json_object_array_length(new_object);
-  printf("%li\n", arraylen);
   for (size_t i = 0; i < arraylen; ++i){
     array_index = json_object_array_get_idx(new_object, i);
     if (json_object_object_get_ex(array_index, key, &tmp) != 0)

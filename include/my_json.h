@@ -8,6 +8,19 @@
 
 #define WOEID_SIZE 256
 #define WEATH_SIZE 256
+#define CITY_SIZE 256
+
+enum wp
+{
+    created, 
+    weather_state_name,
+    the_temp,
+    wind_speed,
+    air_pressure,
+    humidity,
+    visibility,
+    NUM_PARAMETERS
+};
 
 int json_field_get(const char* json_string, const char *key, char *field);
 

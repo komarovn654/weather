@@ -14,7 +14,6 @@ struct memory {
    size_t size;
  };
 
-//static size_t cb(void *data, size_t size, size_t nmemb, void *userp);
-int curl_get(CURL *curl_handle, const char* url, struct memory *data);
-
+char* make_request(const char* url_string);
+char* make_url_string(const char* str1,const char* str2,const char* str3);
 #endif

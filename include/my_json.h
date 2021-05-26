@@ -19,7 +19,7 @@ enum wp
     air_pressure,
     humidity,
     visibility,
-    NUM_PARAMETERS
+    num_parameters
 };
 
 int json_field_get(const char* json_string, const char *key, char *field);

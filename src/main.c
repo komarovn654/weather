@@ -44,16 +44,11 @@ void date_get(char *date)
     strcpy(date, cd);
 }
 
-int main(int argc, char* argv[])
+int woeid_request(const char *argv, char *woeid_buf)
 {
-    if (argc < 2){
-        printf("Usage: ./weather.out cityname\n");
-        return EXIT_FAILURE;
-    }
-
     /*Make woeid request*/
     char *url_string = {0};
-    if ((url_string = make_url_string(URL_WOEID_STRING, argv[1], " ")) == NULL)
+    if ((url_string = make_url_string(URL_WOEID_STRING, argv, " ")) == NULL)
         return EXIT_FAILURE;
     
     char *response = {0};
@@ -71,11 +66,19 @@ int main(int argc, char* argv[])
     }
     json_field_get(response, "title", city);
     printf("City: %s\n", city);
+    strcpy(woeid_buf, woeid);
+
     free(url_string);
     free(response);
+    return EXIT_SUCCESS; 
+}
 
+int weath_request(const char *woeid)
+{
     /*Make weather request*/
     char date[20] = {0};
+    char *url_string = {0};
+    char *response = {0};
     date_get(date);
     if ((url_string = make_url_string(URL_WEATH_STRING, woeid, date)) == NULL)
         return EXIT_FAILURE;
@@ -84,9 +87,9 @@ int main(int argc, char* argv[])
         free(url_string);
         return EXIT_FAILURE;
     }
-  
+    
     char weather[WEATH_SIZE] = {0};
-    for (size_t i = 0; i < NUM_PARAMETERS; ++i){
+    for (size_t i = 0; i < num_parameters; ++i){
         switch (i){
             case created:
                 json_field_get(response, "created", weather);     
@@ -123,5 +126,22 @@ int main(int argc, char* argv[])
 
     free(url_string);
     free(response);
-    return 0;
+    return EXIT_SUCCESS;
+}
+
+int main(int argc, char* argv[])
+{
+    if (argc < 2){
+        printf("Usage: ./weather.out cityname\n");
+        return EXIT_FAILURE;
+    }
+
+    char woeid[WOEID_SIZE] = {0};
+    if (woeid_request(argv[1], woeid))
+        return EXIT_FAILURE;
+
+    if (weath_request(woeid))
+        return EXIT_FAILURE;
+
+    return EXIT_SUCCESS;
 }
